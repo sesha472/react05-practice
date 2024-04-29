@@ -1,26 +1,17 @@
-import React,{useRef} from 'react'
+import React, { forwardRef } from 'react'
 
-function Datageting() {
-
-    const username = useRef('');
-
-    const submitHandler=()=>{
-      console.log(username.current.value);
-    }
-    
+ const Datageting= forwardRef( function Datageting({label,type},ref) {
+   
   return (
   <>
-  <p>hi</p>
+   <label>{label}</label>
     <input 
-     ref={username}
-     type='text'
+     type={type}
+     ref={ref}
      placeholder='enteryour name'
      />
-     <br/>
-     <br/>
-     <button onClick={submitHandler}>submit</button>
       </>
   )
-}
+})
 
 export default Datageting
