@@ -1,5 +1,5 @@
-import React,{useState,useRef} from 'react'
-import ResultModal from './ResultModal';
+import {useState,useRef} from 'react';
+import ResultModal from './ResultModal.jsx';
 
 function TimerChallange({title,targetTime}) {
 
@@ -16,29 +16,26 @@ function TimerChallange({title,targetTime}) {
             dialog.current.showModal();
          }, targetTime*1000);
 
-        settimerstarted(true)
+        settimerstarted(true);
 
     }
-    
+
      const stopHandler=()=>{
       clearTimeout(timer.current)
      }
    
   return (
     <>
-       <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
+      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
       <section className="challenge">
         <h2>{title}</h2>
-
         <p className="challenge-time">
           {targetTime} second{targetTime > 1 ? "s" : ""}
         </p>
 
-        {timerstarted ? (
-          <button onClick={stopHandler}>stop timer</button>
-        ) : (
-          <button onClick={startHanlder}>start timer</button>
-        )}
+        <button onClick={timerstarted ? stopHandler : startHanlder}>
+          {timerstarted ? "stop" : "start"} timer
+        </button>
 
         <p className={timerstarted ? "active" : undefined}>
           {timerstarted ? "time is runnig." : "timer is inactive"}
