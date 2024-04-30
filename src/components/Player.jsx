@@ -10,7 +10,6 @@ export default function Player() {
     enteredplayername.current.value='';
    }
    useEffect(() => {
-    console.log( enteredplayername.current.value);
     enteredplayername.current.focus() 
    }, [])
    

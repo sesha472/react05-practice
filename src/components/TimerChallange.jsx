@@ -3,17 +3,17 @@ import ResultModal from './ResultModal.jsx';
 
 function TimerChallange({title,targetTime}) {
 
-  const timer=useRef();
+  const timervariable=useRef();
   const dialog=useRef();
 
     const [timerstarted, settimerstarted] = useState(false);
     const [timerExpired, settimerExpired] = useState(false);
    
     const startHanlder=()=>{
-     
-      timer.current= setTimeout(() => {
+    
+      timervariable.current= setTimeout(() => {
             settimerExpired(true);
-            dialog.current.showModal();
+            dialog.current.fnametutu();
          }, targetTime*1000);
 
         settimerstarted(true);
