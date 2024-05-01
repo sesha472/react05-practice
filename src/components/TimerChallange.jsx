@@ -6,39 +6,46 @@ function TimerChallange({title,targetTime}) {
   const timervariable=useRef();
   const dialog=useRef();
 
-    const [timerstarted, settimerstarted] = useState(false);
-    const [timerExpired, settimerExpired] = useState(false);
-   
-    const startHanlder=()=>{
-    
-      timervariable.current= setTimeout(() => {
-            settimerExpired(true);
-            dialog.current.fnametutu();
-         }, targetTime*1000);
+    const [timeRemainng, settimeRemainng] = useState(targetTime*1000)
+  
 
-        settimerstarted(true);
+     const timerIsRunning= timeRemainng > 0 && timeRemainng < (targetTime*1000) ;
+      
+     if(timeRemainng <=0){
+      clearInterval(timervariable.current);
+       settimeRemainng(targetTime*1000);
+        dialog.current.fnametutu();
 
-    }
-
-     const stopHandler=()=>{
-      clearTimeout(timer.current)
      }
+
+    const startHanlder = () => {
+      timervariable.current = setInterval(() => {
+        settimeRemainng(prvtimer=>prvtimer-10)
+     
+      },  10);
+
+    };
+
+    const stopHandler = () => {
+      dialog.current.fnametutu();
+      clearInterval(timervariable.current);
+    };
    
   return (
     <>
-      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
+      <ResultModal ref={dialog} targetTime={targetTime} timeRemainng={timeRemainng}  />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
           {targetTime} second{targetTime > 1 ? "s" : ""}
         </p>
 
-        <button onClick={timerstarted ? stopHandler : startHanlder}>
-          {timerstarted ? "stop" : "start"} timer
+        <button onClick={timerIsRunning ? stopHandler : startHanlder}>
+          {timerIsRunning ? "stop" : "start"} timer
         </button>
 
-        <p className={timerstarted ? "active" : undefined}>
-          {timerstarted ? "time is runnig." : "timer is inactive"}
+        <p className={timerIsRunning ? "active" : undefined}>
+          {timerIsRunning ? "time is runnig." : "timer is inactive"}
         </p>
       </section>
     </>
